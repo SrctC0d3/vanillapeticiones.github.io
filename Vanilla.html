@@ -4,10 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vanilla TV</title>
-  <link rel="icon" href="logo.png" type="image/png"> <!-- Cambia logo.png por el nombre de tu icono -->
+  <link rel="icon" href="logo.png" type="image/png">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* Animación fade-in y pulso suave para el logo */
     @keyframes fadePulse {
       0% { opacity: 0; transform: scale(0.9); }
       50% { opacity: 1; transform: scale(1.05); }
@@ -20,7 +19,6 @@
 </head>
 <body class="bg-gradient-to-r from-red-900 via-black to-red-900 min-h-screen flex items-center justify-center text-white">
   <div class="w-full max-w-md bg-black/80 p-8 rounded-2xl shadow-2xl text-center">
-    <!-- Logo arriba con animación -->
     <img src="logo.png" alt="Logo Vanilla TV" class="mx-auto mb-4 w-20 h-20 rounded-full shadow-lg logo-animado">
 
     <h1 class="text-3xl font-bold mb-4">🎬 Bienvenido a Vanilla TV</h1>
@@ -65,9 +63,7 @@
         alert("Por favor, escribe el nombre o enlace del contenido que solicitas.");
         return;
       }
-
-      // Aquí debes poner tu webhook de Discord
-      const webhookURL = "https://discord.com/api/webhooks/1421990504928907315/VEGDYyL4WzJdW9rGTqGK5H0Ilf93aElRV-QKiUu5jJcHeWKAE-0e5XjIOxI7nXPjAo89";
+      const webhookURL = "https://discord.com/api/webhooks/1421990504928907315/VEGDYyL4WzJdW9rGTqGK5H0Ilf93aElRV-QKiUu5jJcHeWKAE-0e5XjIOxI7nXPjAo89"; //atacalo si quieres ;)
 
       const payload = {
         content: `@everyone \n👤 Usuario: **${username}**\n📌 Tipo: **${opcion}**\n🎬 Contenido solicitado: ${contenido}`
@@ -81,7 +77,6 @@
         });
         mensaje.classList.remove("hidden");
 
-        // limpiar los campos tras enviar
         document.getElementById("username").value = "";
         document.getElementById("opcion").value = "";
         document.getElementById("contenido").value = "";
