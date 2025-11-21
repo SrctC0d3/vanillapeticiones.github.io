@@ -17,14 +17,27 @@
     }
   </style>
 </head>
-<body class="bg-gradient-to-r from-red-900 via-black to-red-900 min-h-screen flex items-center justify-center text-white">
+<body class="bg-gradient-to-r from-red-900 via-black to-red-900 min-h-screen flex items-center justify-center text-white relative">
+
+  <!-- Modal Telegram -->
+  <div id="modalTelegram" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden">
+    <div class="bg-black/90 p-8 rounded-2xl text-center max-w-sm mx-4">
+      <h2 class="text-2xl font-bold mb-4 text-red-500">📢 ¡Bienvenido!</h2>
+      <p class="mb-6 text-white">Accede a nuestro Telegram para más información y novedades.</p>
+	   <p class="mb-6 text-white">¡Activa ya nuestra VPN para evitar bloqueos!</p>
+      <a href="https://t.me/vanillaiptv/1/600" target="_blank" class="bg-red-600 hover:bg-red-700 transition text-white font-bold px-6 py-3 rounded-xl inline-block">Ir a Telegram</a>
+      <button id="cerrarModal" class="mt-4 text-gray-400 hover:text-white">Cerrar</button>
+    </div>
+  </div>
+
+  <!-- Contenido principal -->
   <div class="w-full max-w-md bg-black/80 p-8 rounded-2xl shadow-2xl text-center">
     <img src="logo.png" alt="Logo Vanilla TV" class="mx-auto mb-4 w-20 h-20 rounded-full shadow-lg logo-animado">
 
     <h1 class="text-3xl font-bold mb-4">🎬 Bienvenido a Vanilla TV</h1>
 
     <label for="username" class="block text-lg mb-2">Escribe tu usuario (Telegram, Username, etc.)</label>
-    <input id="username" type="text" placeholder="Tu usuario aquí (Escribe cualquier cosa)" class="w-full p-3 mb-6 rounded-lg bg-gray-800 border border-gray-600 focus:ring-2 focus:ring-red-500 text-center">
+    <input id="username" type="text" placeholder="Tu usuario aquí" class="w-full p-3 mb-6 rounded-lg bg-gray-800 border border-gray-600 focus:ring-2 focus:ring-red-500 text-center">
 
     <label for="opcion" class="block text-lg mb-2">¿Qué deseas solicitar?</label>
     <select id="opcion" class="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 focus:ring-2 focus:ring-red-500 mb-6">
@@ -43,6 +56,17 @@
   </div>
 
   <script>
+    // Mostrar modal al cargar la página
+    window.onload = function() {
+      document.getElementById('modalTelegram').classList.remove('hidden');
+    };
+
+    // Cerrar modal
+    document.getElementById('cerrarModal').addEventListener('click', function() {
+      document.getElementById('modalTelegram').classList.add('hidden');
+    });
+
+    // Función para enviar solicitud a Discord
     async function enviarSeleccion() {
       const username = document.getElementById("username").value.trim();
       const opcion = document.getElementById("opcion").value;
@@ -63,7 +87,8 @@
         alert("Por favor, escribe el nombre o enlace del contenido que solicitas.");
         return;
       }
-      const webhookURL = "https://discord.com/api/webhooks/1421990504928907315/VEGDYyL4WzJdW9rGTqGK5H0Ilf93aElRV-QKiUu5jJcHeWKAE-0e5XjIOxI7nXPjAo89"; //atacalo si quieres ;)
+
+      const webhookURL = "https://discord.com/api/webhooks/1421990504928907315/VEGDYyL4WzJdW9rGTqGK5H0Ilf93aElRV-QKiUu5jJcHeWKAE-0e5XjIOxI7nXPjAo89";
 
       const payload = {
         content: `@everyone \n👤 Usuario: **${username}**\n📌 Tipo: **${opcion}**\n🎬 Contenido solicitado: ${contenido}`
