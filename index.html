@@ -6,56 +6,63 @@
   <title>Vanilla TV</title>
   <link rel="icon" href="logo.png" type="image/png">
   <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
     @keyframes fadePulse {
       0% { opacity: 0; transform: scale(0.9); }
       50% { opacity: 1; transform: scale(1.05); }
       100% { opacity: 1; transform: scale(1); }
     }
+
     .logo-animado {
       animation: fadePulse 1.5s ease-in-out;
     }
   </style>
 </head>
-<body class="bg-gradient-to-r from-red-900 via-black to-red-900 min-h-screen flex items-center justify-center text-white relative">
 
-  <!-- Contenido principal -->
-  <div class="w-full max-w-md bg-black/80 p-8 rounded-2xl shadow-2xl text-center">
-    <img src="logo.png" alt="Logo Vanilla TV" class="mx-auto mb-4 w-20 h-20 rounded-full shadow-lg logo-animado">
+<body class="bg-gradient-to-r from-blue-950 via-black to-blue-950 min-h-screen flex items-center justify-center text-white relative">
 
-    <h1 class="text-3xl font-bold mb-4">🎬 Bienvenido a Vanilla TV</h1>
+  <div class="w-full max-w-md bg-blue-950/70 backdrop-blur-md p-8 rounded-2xl shadow-2xl border border-blue-800 text-center">
 
-    <label for="username" class="block text-lg mb-2">Escribe tu usuario (Telegram, Username, etc.)</label>
-    <input id="username" type="text" placeholder="Tu usuario aquí" class="w-full p-3 mb-6 rounded-lg bg-gray-800 border border-gray-600 focus:ring-2 focus:ring-red-500 text-center">
+    <img src="logo.png" alt="Logo Vanilla TV" class="mx-auto mb-4 w-24 h-24 rounded-full shadow-lg logo-animado">
 
-    <label for="opcion" class="block text-lg mb-2">¿Qué deseas solicitar?</label>
-    <select id="opcion" class="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 focus:ring-2 focus:ring-red-500 mb-6">
+    <h1 class="text-3xl font-bold mb-4 text-blue-400">🎬 Bienvenido a Vanilla TV</h1>
+
+    <label class="block text-lg mb-2">Escribe tu usuario (Telegram, Username, etc.)</label>
+    <input id="username" type="text" placeholder="Tu usuario aquí"
+      class="w-full p-3 mb-6 rounded-lg bg-blue-900 border border-blue-700 focus:ring-2 focus:ring-blue-400 focus:outline-none text-center">
+
+    <label class="block text-lg mb-2">¿Qué deseas solicitar?</label>
+    <select id="opcion"
+      class="w-full p-3 rounded-lg bg-blue-900 border border-blue-700 focus:ring-2 focus:ring-blue-400 mb-6 focus:outline-none">
       <option value="">Selecciona una opción</option>
       <option value="Película">Película 🎥</option>
       <option value="Serie">Serie 📺</option>
       <option value="Canal en vivo">Canal en vivo 📡</option>
     </select>
 
-    <label for="contenido" class="block text-lg mb-2">Nombre del contenido o enlace de <a href="https://www.themoviedb.org/" target="_blank" class="text-red-400 underline">TheMovieDB</a></label>
-    <input id="contenido" type="text" placeholder="Ejemplo: Inception o enlace de TMDB" class="w-full p-3 mb-6 rounded-lg bg-gray-800 border border-gray-600 focus:ring-2 focus:ring-red-500 text-center">
+    <label class="block text-lg mb-2">
+      Nombre del contenido o enlace de 
+      <a href="https://www.themoviedb.org/" target="_blank" class="text-blue-400 underline hover:text-blue-300">
+        TheMovieDB
+      </a>
+    </label>
 
-    <button onclick="enviarSeleccion()" class="w-full bg-red-600 hover:bg-red-700 transition p-3 rounded-xl font-bold">Enviar 🚀</button>
+    <input id="contenido" type="text" placeholder="Ejemplo: Inception o enlace de TMDB"
+      class="w-full p-3 mb-6 rounded-lg bg-blue-900 border border-blue-700 focus:ring-2 focus:ring-blue-400 focus:outline-none text-center">
 
-    <p id="mensaje" class="mt-4 text-green-400 hidden">✅ Tu solicitud ha sido enviada a nuestro equipo. La revisaremos lo antes posible.</p>
+    <button onclick="enviarSeleccion()"
+      class="w-full bg-blue-600 hover:bg-blue-500 transition p-3 rounded-xl font-bold shadow-lg shadow-blue-900/50">
+      Enviar 🚀
+    </button>
+
+    <p id="mensaje" class="mt-4 text-green-400 hidden">
+      ✅ Tu solicitud ha sido enviada a nuestro equipo. La revisaremos lo antes posible.
+    </p>
+
   </div>
 
   <script>
-    // Mostrar modal al cargar la página
-    window.onload = function() {
-      document.getElementById('modalTelegram').classList.remove('hidden');
-    };
-
-    // Cerrar modal
-    document.getElementById('cerrarModal').addEventListener('click', function() {
-      document.getElementById('modalTelegram').classList.add('hidden');
-    });
-
-    // Función para enviar solicitud a Discord
     async function enviarSeleccion() {
       const username = document.getElementById("username").value.trim();
       const opcion = document.getElementById("opcion").value;
@@ -77,7 +84,7 @@
         return;
       }
 
-      const webhookURL = "https://discord.com/api/webhooks/1421990504928907315/VEGDYyL4WzJdW9rGTqGK5H0Ilf93aElRV-QKiUu5jJcHeWKAE-0e5XjIOxI7nXPjAo89";
+      const webhookURL = "TU_WEBHOOK_AQUI";
 
       const payload = {
         content: `@everyone \n👤 Usuario: **${username}**\n📌 Tipo: **${opcion}**\n🎬 Contenido solicitado: ${contenido}`
@@ -89,6 +96,7 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload)
         });
+
         mensaje.classList.remove("hidden");
 
         document.getElementById("username").value = "";
@@ -100,5 +108,6 @@
       }
     }
   </script>
+
 </body>
 </html>
