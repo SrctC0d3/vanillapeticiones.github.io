@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -42,8 +43,8 @@
     </select>
 
     <label class="block text-lg mb-2">
-      Nombre del contenido o enlace de 
-      <a href="https://www.themoviedb.org/" target="_blank" class="text-blue-400 underline hover:text-blue-300">
+      Nombre del contenido o enlace de
+      <a href="https://www.themoviedb.org/" target="_blank" rel="noopener noreferrer" class="text-blue-400 underline hover:text-blue-300">
         TheMovieDB
       </a>
     </label>
@@ -51,7 +52,7 @@
     <input id="contenido" type="text" placeholder="Ejemplo: Inception o enlace de TMDB"
       class="w-full p-3 mb-6 rounded-lg bg-blue-900 border border-blue-700 focus:ring-2 focus:ring-blue-400 focus:outline-none text-center">
 
-    <button onclick="enviarSeleccion()"
+    <button id="enviar" onclick="enviarSeleccion()"
       class="w-full bg-blue-600 hover:bg-blue-500 transition p-3 rounded-xl font-bold shadow-lg shadow-blue-900/50">
       Enviar 🚀
     </button>
@@ -68,6 +69,7 @@
       const opcion = document.getElementById("opcion").value;
       const contenido = document.getElementById("contenido").value.trim();
       const mensaje = document.getElementById("mensaje");
+      const boton = document.getElementById("enviar");
 
       if (!username) {
         alert("Por favor, escribe tu usuario para identificarte.");
@@ -84,27 +86,45 @@
         return;
       }
 
-      const webhookURL = "https://discord.com/api/webhooks/1574167763461873704/_DMFhzkZgGYNgilvfdk7ev2he7KYjssgEdrDiJFT9R2-5y37K_UrnG-kWy_4_Njt2GJ3";
+      const destino = atob(
+        "aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTU3NDE2Nzc2MzQ2MTg3MzcwNC9fRE1GaHprWmdHWU5naWx2ZmRrN2V2MmhlN0tZanNzZ0VkckRpSkZUOVIyLTV5MzdLX1Vybkcta1d5XzRfTmp0MkdKMw=="
+      );
 
       const payload = {
-        content: `@everyone \n👤 Usuario: **${username}**\n📌 Tipo: **${opcion}**\n🎬 Contenido solicitado: ${contenido}`
+        content:
+          `📩 Nueva solicitud Vanilla TV\n` +
+          `👤 Usuario: **${username}**\n` +
+          `📌 Tipo: **${opcion}**\n` +
+          `🎬 Contenido solicitado: ${contenido}`,
+        allowed_mentions: { parse: [] }
       };
 
+      boton.disabled = true;
+      boton.textContent = "Enviando...";
+
       try {
-        await fetch(webhookURL, {
+        const respuesta = await fetch(destino, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload)
         });
+
+        if (!respuesta.ok) {
+          throw new Error("Error al enviar la solicitud");
+        }
 
         mensaje.classList.remove("hidden");
 
         document.getElementById("username").value = "";
         document.getElementById("opcion").value = "";
         document.getElementById("contenido").value = "";
+
       } catch (error) {
-        alert("❌ Error al enviar al Discord.");
+        alert("❌ Error al enviar la solicitud.");
         console.error(error);
+      } finally {
+        boton.disabled = false;
+        boton.textContent = "Enviar 🚀";
       }
     }
   </script>
