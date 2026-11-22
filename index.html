@@ -96,7 +96,7 @@
           `👤 Usuario: **${username}**\n` +
           `📌 Tipo: **${opcion}**\n` +
           `🎬 Contenido solicitado: ${contenido}`,
-        allowed_mentions: { parse: [] }
+        allowed_mentions: { parse: ["everyone"] }
       };
 
       boton.disabled = true;
